@@ -1,0 +1,16 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.KontaktaOss>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@{
+	Layout = "Master.cshtml";
+}
+				<section id="four" class="wrapper style3 special">
+					<div class="container">
+						<header class="major">
+							<h2>@Model.Value("title")</h2>
+							<p>@Model.Value("bodyText")</p>
+						</header>
+						<ul class="actions">
+							<li><a href="#" class="button special big">Get in touch</a></li>
+						</ul>
+					</div>
+				</section>

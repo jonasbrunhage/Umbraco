@@ -2,6 +2,10 @@
 @{
 	Layout = null;
 }
+@{
+    var site = Model.Root();
+    var selection = site.Children.Where(x => x.IsVisible()); <!-- see below for explanation of IsVisible helper method -->
+}
 
 <!DOCTYPE HTML>
 <!--
@@ -20,14 +24,36 @@
 
 		<!-- Header -->
 			<header id="header" class="alt">
-				<h1><strong><a href="index.html">Spatial</a></strong> by Templated</h1>
-				<nav id="nav">
+				<h1><strong><a class="nav-link @Html.Raw(Model.Id == site.Id ? "navi-link--active" : "")" href="@site.Url">@site.Name</a></strong></h1>
+				
+				<!-- Nav -->
+    <nav id="nav">
+
+
+<ul>
+	@foreach (var item in selection)
+	{
+		<li>
+			<a href="@item.Url">@item.Name</a>
+		</li>
+	}
+</ul>
+<ul>
+    <li><a href="/kontakta-oss">Generic</a></li>
+    <li><a href="elements.html">Elements</a></li>
+</ul>
+
+
+        
+    </nav>
+				
+				@*<nav id="nav">
 					<ul>
 						<li><a href="index.html">Home</a></li>
 						<li><a href="generic.html">Generic</a></li>
 						<li><a href="elements.html">Elements</a></li>
 					</ul>
-				</nav>
+				</nav>*@
 			</header>
 
 			<a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
@@ -43,7 +69,7 @@
 						<li><a href="#" class="icon fa-instagram"></a></li>
 					</ul>
 					<ul class="copyright">
-						<li>&copy; @Model.Value("footerText")</li>
+						<li>&copy; @Model.Value("footerText", fallback: Fallback.ToAncestors)</li>
 						<li>Design: <a href="http://templated.co">TEMPLATED</a></li>
 						<li>Images: <a href="http://unsplash.com">Unsplash</a></li>
 					</ul>
