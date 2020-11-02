@@ -3,3 +3,64 @@
 @{
 	Layout = "Master.cshtml";
 }
+
+@{
+	var selection = Umbraco.Content(Guid.Parse("d4593191-7f6f-425b-8574-76480928968e"))
+    .ChildrenOfType("productItem")
+    .Where(x => x.IsVisible())
+    .OrderByDescending(x => x.CreateDate);
+}
+
+
+@*<section id="four" class="wrapper style3 special">
+	<div class="container">
+		<header class="major">
+			<h2>@Model.Value("title")</h2>
+			<p>@Model.Value("bodyText")</p>
+		</header>
+	</div>
+</section>*@
+@*<ul>
+    @foreach (var item in selection)
+    {
+        <li>
+            <a href="@item.Url">@item.Name</a>
+        </li>
+    }
+</ul>*@
+
+
+<ul>     
+@foreach (ContentModels.ProductItem item in selection)
+{
+   <a href="@item.Url">
+        <li>
+            
+            <p>@Model.Value("productName")</p>
+            <h3>@Model.Value("title")</h3>
+            <h3>@item.ProductName</h3>
+            <h3>@item.Description</h3>
+            <img style="width:200px" src="@item.Image.Url" alt="Alternate Text" />
+
+        </li>
+    </a>
+}
+</ul>  
+@*<div class="product-grid">
+            
+            foreach (Product product in Model.FeaturedProducts)
+            {
+                <a href="@product.Url" class="product-grid__item" style="background-image: url('@product.Photos.Url')">
+                    <div class="product-grid__item__overlay">
+                        <div class="product-grid__item__name">@product.ProductName</div>
+                        <div class="product-grid__item__price">@Model.DefaultCurrency @product.Price.ToString("F")</div>
+                    </div>
+                </a>
+            }
+            
+        </div>*@
+        
+
+
+
+
