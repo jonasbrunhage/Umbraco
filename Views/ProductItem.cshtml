@@ -4,14 +4,21 @@
 	Layout = "Master.cshtml";
 	var image = Model.Value<IPublishedContent>("image");
 }
+<section id="four" class="wrapper style3 special">
+	<div class="container">
+		<header class="major">
+			
+			
+		</header>
+	</div>
+</section>
 <section id="main" class="wrapper">
     <div class="container">
-        <header class="major special">
-             
-            <h2>@Model.Value("productName")</h2>
-        </header>
+
         <div>
-            <p>@Model.Value("price")</p>
+            <h2>@Model.Value("productName")</h2>
+            <h4>@Model.Value("description")</h4>
+            <p style="font-weight:bold">@Model.Value("price") SEK</p>
             <img style="width:50%" src="@image.Url"/>
         </div>
     </div>
