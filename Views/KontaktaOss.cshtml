@@ -3,14 +3,18 @@
 @{
 	Layout = "Master.cshtml";
 }
-				<section id="four" class="wrapper style3 special">
-					<div class="container">
-						<header class="major">
-							<h2>@Model.Value("title")</h2>
-							<p>@Model.Value("bodyText")</p>
-						</header>
-						<ul class="actions">
-							<li><a href="#" class="button special big">Get in touch</a></li>
-						</ul>
-					</div>
-				</section>
+
+<section id="four" class="wrapper style3 special">
+	<div class="container">
+		<header class="major">
+			<h2>@Model.Value("title")</h2>
+			<p>@Model.Value("bodyText")</p>
+		</header>
+		
+	</div>
+</section>
+<div>
+    @{
+        Html.RenderAction("RenderContactForm", "Contact");
+    }
+</div>

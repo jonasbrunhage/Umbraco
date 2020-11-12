@@ -23,28 +23,40 @@
 	<body class="landing">
 
 		<!-- Header -->
+		@if (Umbraco.MemberIsLoggedOn())
+		{
 			<header id="header" class="alt">
-			<h1><strong><a class="nav-link @Html.Raw(Model.Id == site.Id ? "navi-link--active" : "")" href="@site.Url">@site.Name</a></strong></h1>
-				
-		<!-- Nav -->
-        <nav id="nav">
-            <ul>
-            	@foreach (var item in selection)
-            	{
-            		<li class="nav-item">
-            			
-            			 <a class="nav-link @(item.IsAncestorOrSelf(Model) ? "nav-link--active" : null)" href="@item.Url">@item.Name</a>
-            			 
-            		</li>
-            	}
-            </ul>
-        
-            @*<ul>
-                <li><a href="/kontakta-oss">Generic</a></li>
-                <li><a href="elements.html">Elements</a></li>
-            </ul>*@
-         </nav>
-				
+				<h1><strong><a style="color:goldenrod" class="nav-link @Html.Raw(Model.Id == site.Id ? " navi-link--active" : "" )" href="@site.Url">@site.Name</a></strong></h1>
+
+				<!-- Nav -->
+				<nav id="nav">
+					<ul>
+						@foreach (var item in selection)
+						{
+							<li class="nav-item">
+								<a class="nav-link @(item.IsAncestorOrSelf(Model) ? " nav-link--active" : null)" href="@item.Url">@item.Name</a>
+							</li>
+						}
+					</ul>
+					@using (Html.BeginUmbracoForm("SubmitLogout", "Member", FormMethod.Post, new { id = "logout" }))
+					{
+						var myUser = Membership.GetUser();
+						if (myUser != null)
+						{
+							@:<div>
+								@:<p><strong>Logged in as </strong><span>@myUser.UserName </span><span><button name="logout" type="submit"><span>logout</span><i class="fa fa-arrow-right"></i></button></span></p>
+								@*@:<button name="logout" type="submit"><span>logout</span><i class="fa fa-arrow-right"></i></button>*@
+							@:</div>
+						}
+					}
+
+
+					@*<ul>
+						<li><a href="/kontakta-oss">Generic</a></li>
+						<li><a href="elements.html">Elements</a></li>
+					</ul>*@
+				</nav>
+
 				@*<nav id="nav">
 					<ul>
 						<li><a href="index.html">Home</a></li>
@@ -55,30 +67,53 @@
 			</header>
 
 			<a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
-			
-@RenderBody()
+		}
+		else
+		{
+			<header id="header" class="alt">
+				<h1><strong><a class="nav-link @Html.Raw(Model.Id == site.Id ? " navi-link--active" : "" )" href="@site.Url">@site.Name</a></strong></h1>
+
+				<!-- Nav -->
+				<nav id="nav">
+					<ul>
+						<li>
+							<a class="nav-link @Html.Raw(Model.Id == site.Id ? " navi-link--active" : "" )" href="/register">Register</a>
+							<a class="nav-link @Html.Raw(Model.Id == site.Id ? " navi-link--active" : "" )" href="/login">Login</a>
+						</li>
+					</ul>
+
+				</nav>
+				
+			</header>
+
+			<a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+		}
+
+
+
+		@RenderBody()
 
 		<!-- Footer -->
-			<footer id="footer">
-				<div class="container">
-					<ul class="icons">
-						<li><a href="#" class="icon fa-facebook"></a></li>
-						<li><a href="#" class="icon fa-twitter"></a></li>
-						<li><a href="#" class="icon fa-instagram"></a></li>
-					</ul>
-					<ul class="copyright">
-						<li>&copy; @Model.Value("footerText", fallback: Fallback.ToAncestors)</li>
-						<li>Design: <a href="http://templated.co">TEMPLATED</a></li>
-						<li>Images: <a href="http://unsplash.com">Unsplash</a></li>
-					</ul>
-				</div>
-			</footer>
+		<footer id="footer">
+			<div class="container">
+				<ul class="icons">
+					<li><a href="#" class="icon fa-facebook"></a></li>
+					<li><a href="#" class="icon fa-twitter"></a></li>
+					<li><a href="#" class="icon fa-instagram"></a></li>
+				</ul>
+				<ul class="copyright">
+					<li>&copy; @Model.Value("footerText", fallback: Fallback.ToAncestors)</li>
+					<li>Design: <a href="http://templated.co">TEMPLATED</a></li>
+					<li>Images: <a href="http://unsplash.com">Unsplash</a></li>
+				</ul>
+			</div>
+		</footer>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/skel.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
 
 	</body>
 </html>

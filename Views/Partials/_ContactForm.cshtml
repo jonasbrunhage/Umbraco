@@ -1,0 +1,39 @@
+﻿@model CMS_Umbraco_Inlämning.Models.ContactFormViewModel
+
+@{
+    Html.EnableClientValidation(true);
+    Html.EnableUnobtrusiveJavaScript(true);
+}
+
+@if (Convert.ToBoolean(TempData["IsSuccesful"]))
+{
+    <h1>Succes!</h1>
+    <p>Thanks for sending your message</p>
+}
+else
+{
+    using (Html.BeginUmbracoForm("HandleContactForm", "Contact"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+
+        <div style="margin:auto;width:60%;padding:10px">
+            <div>
+                @Html.LabelFor(m => m.Name)
+                @Html.TextBoxFor(m => m.Name, new { placeholder = "Enter your name..." })
+            </div>
+            <br />
+            <div>
+                @Html.LabelFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email, new { placeholder = "Enter your email..." })
+            </div>
+            <br />
+            <div>
+                @Html.LabelFor(m => m.Message)
+                @Html.TextAreaFor(m => m.Message, new { placeholder = "Enter your message..." })
+            </div>
+            <br />
+            <input type="submit" name="submit" value="Send" />
+        </div>
+    }
+}
